@@ -26,7 +26,12 @@ class BankSystem
                                 int i;
 
     public:
-        void initialise(void);
+        BankSystem()
+        {
+               count=0;
+                k=0;
+                name[50]={'\0'};
+        }
         void Getdata(void);
         void Deposit(void);
          void Withdraw(void);
@@ -38,15 +43,11 @@ class BankSystem
 
 };
 
-void BankSystem::initialise()
-{
-    count=0;
-    k=0;
-    name[50]={'\0'};
-}
+
     void BankSystem::Getdata()
     {
         char *p;
+        int tempaccount,temp=0;
         cout<<"\t\tBank Account Creation Form\n";
         cout<<"\t\t--------------------------\n";
         cout<<"\t\tEnter The Holder's Name : ";
@@ -55,9 +56,21 @@ void BankSystem::initialise()
         strcpy(p,name);
         Holder_name[count]=p;
         cout<<"\t\tEnter the Account Number : ";
-        cin>>accountNumber[count];
+    ab: cin>>accountNumber[count];
+        for(i=0;i<count;i++)
+        {
+            if(accountNumber[count]==accountNumber[i])
+            {
+                cout<<"\n\t\tSorry Account Number is not Available\n ";
+                cout<<"\t\tEnter the Account Number : ";
+                goto ab;
+            }
+        }
+
+
         cout<<"\t\tEnter the Account Type (S/C) : ";
         cin>>accountType[count];
+        accountType[count]=toupper(accountType[count]);
         cout<<"\t\tEnter the Initial Balance : ";
         cin>>initialBalance[count];
         count++;
@@ -66,8 +79,6 @@ void BankSystem::initialise()
     }
         void BankSystem::Display()
         {
-            int i;
-            char a;
             cout<<"\t---------------------------------------------------------\n";
             cout<<"\tName\t Account Number\t   Account Type\t     Balance\n";
             cout<<"\t---------------------------------------------------------\n";
@@ -293,7 +304,6 @@ int main()
 {
     class BankSystem b;
     char choice;
-    b.initialise();
     do
     {
     cout<<"\t----------------------------------------------------\n";
